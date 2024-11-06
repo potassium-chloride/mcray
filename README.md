@@ -11,7 +11,8 @@ Framework for Monte Carlo simulation of ultra-high energy cosmic rays and electr
 
 ### Applications
 
-[CRbeam](src/app/crbeam) - cosmic ray beam simulation
+[CRbeam](src/app/crbeam) - cosmic ray beam simulation.
+
 PyBeam - python bindings for mcray library (not prepared yet)
 
 ### Installation
