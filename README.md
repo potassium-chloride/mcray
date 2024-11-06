@@ -12,7 +12,7 @@ Framework for Monte Carlo simulation of ultra-high energy cosmic rays and electr
 ### Applications
 
 [CRbeam](src/app/crbeam) - cosmic ray beam simulation
-[PyBeam](pybeam) - python bindings for mcray library
+PyBeam - python bindings for mcray library (not prepared yet)
 
 ### Installation
 - Install [GSL](https://packages.debian.org/sid/libgsl-dev) with headers: `sudo apt-get install libgsl-dev`
