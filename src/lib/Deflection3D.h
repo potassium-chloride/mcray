@@ -51,9 +51,9 @@ namespace Interactions {
     };
 
     // Load field from file
-    class SavedMF : public MagneticField{
+    class TableMF : public MagneticField{
     public:
-        SavedMF(const char* fname);
+        TableMF(const char* fname);
         virtual void GetValueGauss(const coord_type *x, const CosmoTime &aTime,
                                    std::vector<double> &outValue) const;
         virtual void GetValueGauss_NEAREST(const coord_type *x, const CosmoTime &aTime,
@@ -61,7 +61,7 @@ namespace Interactions {
         virtual void GetValueGauss_LINEAR(const coord_type *x, const CosmoTime &aTime,
                                    std::vector<double> &outValue) const;
         virtual double MinVariabilityScale(const CosmoTime &aTime) const;
-        ~SavedMF();
+        ~TableMF();
     private:
     	int coord2indexZero(double coord, double min_val, double max_val, int N) const;
     	int coord2index(coord_type x, coord_type y, coord_type z) const;

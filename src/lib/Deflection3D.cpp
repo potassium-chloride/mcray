@@ -376,7 +376,7 @@ namespace Interactions {
     }
 
 //////// MF from file
-    SavedMF::SavedMF(const char* fname)
+    TableMF::TableMF(const char* fname)
     {
     	std::cerr << "Analyse file..." << std::endl;
         std::ifstream fl(fname);
@@ -446,7 +446,7 @@ namespace Interactions {
         //fl.close();
         std::cerr << "Done!" << std::endl;
     }
-    int SavedMF::coord2index(coord_type x, coord_type y, coord_type z) const
+    int TableMF::coord2index(coord_type x, coord_type y, coord_type z) const
     {
     	int i,j,k;
     	if(x<=x_min)i = 0;
@@ -462,26 +462,26 @@ namespace Interactions {
     	else k = round( (coord_type(Nz-1))*(z-z_min)/(z_max-z_min) );
         return i+Nx*(j+Ny*k); // (Nx-1)+Nx*(Ny-1)+Nx*Ny*(Nz-1) = Nx*Ny*Nz-1
     }
-    int SavedMF::coord2indexZero(double coord, double min_val, double max_val, int N) const
+    int TableMF::coord2indexZero(double coord, double min_val, double max_val, int N) const
     {
     	if(coord<=min_val)return 0;
     	else if(coord>=max_val)return N-1;
     	else return round( (double(N-1))*(coord-min_val)/(max_val-min_val) );
     }
-    void SavedMF::GetValueGauss(const coord_type *x, const CosmoTime &aTime, std::vector<double> &outValue) const
+    void TableMF::GetValueGauss(const coord_type *x, const CosmoTime &aTime, std::vector<double> &outValue) const
     {
         ASSERT(outValue.size()==3);
         GetValueGauss_LINEAR(x, aTime, outValue);
         //GetValueGauss_NEAREST(x, aTime, outValue);
     }
-    void SavedMF::GetValueGauss_NEAREST(const coord_type *x, const CosmoTime &aTime, std::vector<double> &outValue) const
+    void TableMF::GetValueGauss_NEAREST(const coord_type *x, const CosmoTime &aTime, std::vector<double> &outValue) const
     {
         int ind = coord2index(x[0], x[1], x[2]);
         outValue[0] = B_X[ind];
         outValue[1] = B_Y[ind];
         outValue[2] = B_Z[ind];
     }
-    double SavedMF::linApprox(const double* f,
+    double TableMF::linApprox(const double* f,
     					int i, int j, int k,
     					coord_type x, coord_type y, coord_type z) const
     {
@@ -519,7 +519,7 @@ namespace Interactions {
 		return (a0 + a1*x + a2*y + a3*z
 				+ a4*x*y + a5*x*z + a6*y*z + a7*x*y*z)/denom;
     }
-    void SavedMF::GetValueGauss_LINEAR(const coord_type *x, const CosmoTime &aTime, std::vector<double> &outValue) const
+    void TableMF::GetValueGauss_LINEAR(const coord_type *x, const CosmoTime &aTime, std::vector<double> &outValue) const
     {
     	//I need all i,j,k coord
     	int i,j,k;
@@ -541,7 +541,7 @@ namespace Interactions {
         outValue[1] = linApprox(B_Y, i,j,k, x[0],x[1],x[2]);
         outValue[2] = linApprox(B_Z, i,j,k, x[0],x[1],x[2]);
     }
-    double SavedMF::MinVariabilityScale(const CosmoTime &aTime) const
+    double TableMF::MinVariabilityScale(const CosmoTime &aTime) const
     {
     	double a=(x_max-x_min)/Nx;
     	double b=(y_max-y_min)/Ny;
@@ -550,7 +550,7 @@ namespace Interactions {
     	if (b<a && b<c) return 0.4*b;
     	return 0.4*c;
     }
-    SavedMF::~SavedMF()
+    TableMF::~TableMF()
     {
         delete [] B_X;
         delete [] B_Y;

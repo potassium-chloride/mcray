@@ -558,7 +558,7 @@ int CRbeam::run()
 	    }
 	    if( strlen(fPMFFile)>0 ){ // Load MF from file: x y z Bx By Bz columns
 		    std::cout<<"Usage input magnetic field from file: "<<fPMFFile<<std::endl;
-			mf = ((MagneticField*) new SavedMF(fPMFFile));
+			mf = ((MagneticField*) new TableMF(fPMFFile));
 			pe.AddInteraction(new Deflection3D(mf, fDeflectionAccuracy));
 		}else if (fRandomizeEGMF) {
 			Deflection3D* defl = new Deflection3D(fDeflectionAccuracy);
